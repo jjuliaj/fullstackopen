@@ -1,3 +1,7 @@
+/**
+ * Huom! Osa1 on kesken, aloitin vaan tehtäviä vähäsen etukäteen! Älkää huomioiko tätä, vaan pelkästään tuo 0 osio, jonka palautin.
+ */
+
 const App = () => {
   const course = {
     name: 'Half Stack application development',
