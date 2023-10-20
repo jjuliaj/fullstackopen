@@ -3,9 +3,9 @@ import { useState } from 'react'
 
 const Statistics = (props) => (
   <div>
-    <StatisticLine text="good" value={props.good} />
-    <StatisticLine text="neutral" value={props.neutral} />
-    <StatisticLine text="bad" value={props.bad} />
+    <StatisticLine text="Good" value={props.good} />
+    <StatisticLine text="Neutral" value={props.neutral} />
+    <StatisticLine text="Bad" value={props.bad} />
     <br />
     <StatisticLine text="All" value={props.total} />
     <StatisticLine text="Average" value={props.average} />
@@ -42,11 +42,11 @@ const App = () => {
   }
 
 
-  //Alla laskuriapuri joka tarkistaa onko "total" yli 0, ennenkuin se näyttää Statistics osion
-  let laskuriapuri = null
+  //isThereFeedback tarkistaa onko total yli 0 (eli onko siel yhtäkää palautetta), ennenkuin se näyttää Statistics osion
+  let isThereFeedback = null
 
   if (total > 0) {
-    laskuriapuri = (
+    isThereFeedback = (
       <Statistics good={good} neutral={neutral} bad={bad} total={total} average={average} positive={positive} />
     );
   }
@@ -57,9 +57,9 @@ const App = () => {
       <h3>Give us feedback!</h3>
       <Button handleClick={() => setToGood(good + 1)} text="Sooooo good" />
       <Button handleClick={() => setToNeutral(neutral + 1)} text="Neutral" />
-      <Button handleClick={() => setToBad(bad + 1)} text="Bad! Yuck!" />
+      <Button handleClick={() => setToBad(bad + 1)} text="It was gross! Ew." />
 
-      {laskuriapuri}
+      {isThereFeedback}
 
     </div>
   )

@@ -20,7 +20,7 @@ const App = () => {
     </button>
   )
 
-  const setToSelected = newValue => {
+  const setNewSelection = newValue => {
     console.log(newValue)
     setSelected(newValue)
   }
@@ -29,7 +29,7 @@ const App = () => {
     <div>
       {anecdotes[selected]}
       <br />
-      <Button handleClick={() => setToSelected(Math.floor(Math.random() * (8 - 0)) + 0)} text="Next" />
+      <Button handleClick={() => setNewSelection(Math.floor(Math.random() * (8 - 0)) + 0)} text="Next" />
     </div>
   )
 }
