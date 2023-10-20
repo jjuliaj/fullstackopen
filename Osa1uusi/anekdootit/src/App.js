@@ -14,9 +14,22 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
 
+  const Button = (props) => (
+    <button onClick={props.handleClick}>
+      {props.text}
+    </button>
+  )
+
+  const setToSelected = newValue => {
+    console.log(newValue)
+    setSelected(newValue)
+  }
+
   return (
     <div>
       {anecdotes[selected]}
+      <br />
+      <Button handleClick={() => setToSelected(Math.floor(Math.random() * (8 - 0)) + 0)} text="Next" />
     </div>
   )
 }
