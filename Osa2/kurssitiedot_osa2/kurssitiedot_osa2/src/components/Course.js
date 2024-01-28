@@ -1,15 +1,15 @@
 
-const Course = ({ course }) => {
+const Course = ({ courses }) => {
 
-    const summa = course.parts.reduce(
+    const summa = courses.parts.reduce(
         (a, c) => a + c.exercises, 0
     )
 
     return (
         <div>
-            <h1>{course.name}</h1>
+            <h1>{courses.name}</h1>
 
-            {course.parts.map(part =>
+            {courses.parts.map(part =>
                 <ul key={part.id}> <Part part={part} /> </ul>
             )}
 
