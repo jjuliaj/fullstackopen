@@ -13,7 +13,7 @@ const Course = ({ courses }) => {
                 <ul key={part.id}> <Part part={part} /> </ul>
             )}
 
-            <ul>total of exercises {summa}</ul>
+            <ul><strong>total of exercises {summa}</strong></ul>
 
         </div>
     )
