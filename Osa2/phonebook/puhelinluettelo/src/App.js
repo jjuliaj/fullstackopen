@@ -7,6 +7,14 @@ const App = (props) => {
 
   const addName = (event) => {
     event.preventDefault()
+
+    const isNameAlreadyAdded = persons.some(person => person.name === newName);
+
+    if (isNameAlreadyAdded) {
+      alert(`"${newName}" on jo luettelossa!`);
+      return;
+    }
+
     const nameObject = {
       name: newName,
       id: persons.length + 1,
@@ -18,6 +26,8 @@ const App = (props) => {
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }
+
+
 
   return (
     <div>
