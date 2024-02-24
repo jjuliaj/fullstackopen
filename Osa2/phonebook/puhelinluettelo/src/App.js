@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import Person from './components/Person'
+import Persons from './components/Persons'
+import AddPerson from './components/AddPerson'
+import CheckListInput from './components/CheckListInput'
 
 const App = (props) => {
   const [persons, setPersons] = useState(props.persons)
@@ -30,7 +33,7 @@ const App = (props) => {
 
     setPersons([...persons, nameNumberObject])
     setNewName('')
-
+    setNewNumber('')
   }
 
   const handleNameChange = (event) => {
@@ -48,30 +51,16 @@ const App = (props) => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>filter shown names with: <input value={showAll} onChange={handleFilterChange} /></div>
-
+      <CheckListInput value={showAll} onChange={handleFilterChange} />
       <h2>Add new person</h2>
-      <form onSubmit={addName}>
-        <div>name: <input
-          value={newName}
-          onChange={handleNameChange}
-        /></div>
-        <div>number: <input
-          value={newNumber}
-          onChange={handleNumberChange}
-        /></div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <div>
-        <ul>
-          {namesToShow.map(person =>
-            <Person key={person.id} person={person} />
-          )}
-        </ul>
-      </div>
+      <AddPerson
+        newName={newName}
+        newNumber={newNumber}
+        onNameChange={handleNameChange}
+        onNumberChange={handleNumberChange}
+        onSubmit={addName}
+      />
+      <Persons persons={namesToShow} />
     </div>
   )
 
