@@ -1,19 +1,28 @@
-import { useState } from 'react'
-import Person from './components/Person'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import Persons from './components/Persons'
 import AddPerson from './components/AddPerson'
 import CheckListInput from './components/CheckListInput'
 
-const App = (props) => {
-  const [persons, setPersons] = useState(props.persons)
+const App = () => {
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [showAll, setShowAll] = useState('')
 
+  useEffect(() => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        setPersons(response.data)
+      })
+  }, [])
+
   const namesToShow = showAll
     ? persons.filter(person => person.name.toLowerCase().includes(showAll.toLowerCase()))
     : persons
-
 
   const addName = (event) => {
     event.preventDefault()
