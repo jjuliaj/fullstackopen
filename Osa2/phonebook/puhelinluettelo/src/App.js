@@ -25,10 +25,12 @@ const App = () => {
   const addName = (event) => {
     event.preventDefault()
 
-    const isNameAlreadyAdded = persons.some(person => person.name === newName)
+    const isNameAlreadyAdded = persons.find(person => person.name === newName)
 
     if (isNameAlreadyAdded) {
-      alert(`"${newName}" on jo luettelossa!`)
+      if (window.confirm((`"${newName}" on jo luettelossa! Haluatko asettaa uuden numeron?`))) {
+        changeNumber(isNameAlreadyAdded.id)
+      }
       return
     }
 
@@ -53,6 +55,22 @@ const App = () => {
       .deleteperson(id)
       .then(() => {
         setPersons(persons.filter(person => person.id !== id))
+      })
+
+  }
+
+  const changeNumber = id => {
+    const changedPerson = {
+      ...persons.find(person => person.id === id),
+      number: newNumber
+    }
+
+    personService
+      .update(id, changedPerson)
+      .then(returnedPerson => {
+        setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
+        setNewName('')
+        setNewNumber('')
       })
 
   }
