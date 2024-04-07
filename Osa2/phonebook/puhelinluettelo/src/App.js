@@ -4,13 +4,15 @@ import AddPerson from './components/AddPerson'
 import CheckListInput from './components/CheckListInput'
 import personService from './services/persons'
 import Notification from './components/Notification'
+import ErrorNotification from './components/ErrorNotification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [showAll, setShowAll] = useState('')
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -98,6 +100,14 @@ const App = () => {
           setMessage(null)
         }, 5000)
       })
+      .catch(error => {
+        setErrorMessage(
+          `Person '${changedPerson.name}' has already been deleted! Please refresh the page:(`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      })
 
   }
 
@@ -117,6 +127,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Notification message={message} />
+      <ErrorNotification errorMessage={errorMessage} />
       <CheckListInput value={showAll} onChange={handleFilterChange} />
       <h2>Add new person</h2>
       <AddPerson
