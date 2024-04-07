@@ -3,12 +3,14 @@ import Persons from './components/Persons'
 import AddPerson from './components/AddPerson'
 import CheckListInput from './components/CheckListInput'
 import personService from './services/persons'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [showAll, setShowAll] = useState('')
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
     personService
@@ -46,6 +48,14 @@ const App = () => {
         setNewName('')
         setNewNumber('')
       })
+      .then(e => {
+        setMessage(
+          `Person '${personObject.name}' was added`
+        )
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+      })
 
   }
 
@@ -55,6 +65,14 @@ const App = () => {
       .deleteperson(id)
       .then(() => {
         setPersons(persons.filter(person => person.id !== id))
+      })
+      .then(e => {
+        setMessage(
+          `Person you selected was successfully deleted.`
+        )
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })
 
   }
@@ -71,6 +89,14 @@ const App = () => {
         setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
         setNewName('')
         setNewNumber('')
+      })
+      .then(e => {
+        setMessage(
+          `Person's '${changedPerson.name}' number was changed to '${changedPerson.number}'`
+        )
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })
 
   }
@@ -90,6 +116,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
       <CheckListInput value={showAll} onChange={handleFilterChange} />
       <h2>Add new person</h2>
       <AddPerson
